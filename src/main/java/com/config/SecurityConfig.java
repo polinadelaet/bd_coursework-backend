@@ -31,13 +31,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     @Autowired
     private UserService userService;
 
-    //private final UserDetailsService userDetailsService;
-
-//    @Autowired
-//    public SecurityConfig(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
-//        this.userDetailsService = userDetailsService;
-//    }
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().
@@ -45,15 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/**")
                 .permitAll();
-    //            .and();
-    //            .httpBasic();
     }
-
-
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.authenticationProvider(daoAuthenticationProvider());
-//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -64,7 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     protected DaoAuthenticationProvider daoAuthenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder());
-        //daoAuthenticationProvider.setUserDetailsService(userDetailsService);
         daoAuthenticationProvider.setUserDetailsService(userService);
         return daoAuthenticationProvider;
     }
@@ -75,6 +59,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .allowedOrigins("http://localhost:4200")
                 .allowedMethods("*");
     }
-
-
 }

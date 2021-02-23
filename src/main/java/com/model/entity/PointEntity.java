@@ -27,5 +27,4 @@ public class PointEntity implements Serializable {
 
     @Column(name = "hit")
     private boolean hit;
-
 }

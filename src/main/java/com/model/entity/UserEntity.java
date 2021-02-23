@@ -24,7 +24,6 @@ public class UserEntity implements Serializable {
     @Column(name = "password")
     private String password;
 
-    //@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "usr_id", referencedColumnName = "id")
     private List<PointEntity> results = new ArrayList<>();

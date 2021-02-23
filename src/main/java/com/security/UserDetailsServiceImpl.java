@@ -25,17 +25,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
-
-    //@Autowired
-    //PasswordEncoder bCryptPasswordEncoder;
-
-
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByLogin(s);
 
         if (user == null) {
-            throw new UsernameNotFoundException("User not found"); //TODO: user not found
+            throw new UsernameNotFoundException("User not found");
         }
 
         return new User(user.getLogin(), user.getPassword(),

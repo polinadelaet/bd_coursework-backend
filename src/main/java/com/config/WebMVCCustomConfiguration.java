@@ -24,8 +24,6 @@ class WebMVCCustomConfiguration implements WebMvcConfigurer {
                         Resource resource = new ClassPathResource(path);
                         return resource.exists() ? resource : null;
                     }
-
-
                 });
     }
 }

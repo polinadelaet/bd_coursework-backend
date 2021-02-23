@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.model.beans.PointDTO;
-import com.model.beans.UserDTO;
 import com.model.entity.PointEntity;
 import com.model.entity.UserEntity;
 import com.model.repository.PointRepository;
@@ -9,17 +8,13 @@ import com.model.repository.UserRepository;
 import com.security.userDoesNotExistException.UserDoesNotExistException;
 import com.service.CheckHitPoint;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
-import java.util.List;
 
-// @CrossOrigin(origins = "http://localhost:4200/login", maxAge = 3600)
 @RestController
 @RequestMapping("/points")
 public class UserController {
@@ -29,10 +24,6 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
-
-    @Autowired
-    private PointRepository pointRepository;
-
 
     @GetMapping()
     public ResponseEntity getResults(@RequestHeader(name = "LO") String login,
@@ -48,7 +39,7 @@ public class UserController {
         }
     }
 
-    @PostMapping("/add-point")
+    @PostMapping()
     public ResponseEntity addPoint(@RequestBody PointDTO pointDTO,
                                    @RequestHeader(name = "LO") String login,
                                    @RequestHeader(name = "Pa") String password) throws UnsupportedEncodingException {
@@ -71,5 +62,4 @@ public class UserController {
         userRepository.save(userEntity);
         return ResponseEntity.ok().body("{\"result\":\""+hit+"\"}");
     }
-
 }
