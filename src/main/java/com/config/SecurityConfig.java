@@ -3,7 +3,7 @@ package com.config;
 import com.security.ClientRole;
 import com.security.SecurityServiceImpl;
 import com.security.UserDetailsServiceImpl;
-import com.security.UserService;
+import com.security.service.auth.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -28,6 +28,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
 
+//    @Autowired
+//    private UserService userService;
+
     @Autowired
     private UserService userService;
 
@@ -39,6 +42,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .antMatchers(HttpMethod.POST, "/**")
                 .permitAll();
     }
+
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        // пускаем всех кто зашел в приложение
+//        http.csrf()
+//                .disable()
+//                .authorizeRequests()
+//
+//                .antMatchers( "/auth").permitAll()
+//                .antMatchers("/users").hasRole("SCIENTIST")
+//                .antMatchers("/judge").hasRole("JUDGE")
+//        .anyRequest().authenticated();
+//    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

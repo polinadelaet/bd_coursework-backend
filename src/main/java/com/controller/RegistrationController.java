@@ -1,7 +1,7 @@
 package com.controller;
 
-import com.model.beans.UserDTO;
-import com.model.repository.UserRepository;
+import com.model.entity.auth.UserEntity;
+import com.model.repository.auth.UserRepository;
 import com.security.UserDetailsServiceImpl;
 import com.security.userIsAlreadyExistException.UserIsAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +30,7 @@ public class RegistrationController {
     private BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("/registration")
-    public ResponseEntity registration(@RequestBody UserDTO userDTO, HttpServletRequest request) throws ServletException {
+    public ResponseEntity registration(@RequestBody UserEntity userDTO, HttpServletRequest request) throws ServletException {
         try {
             userDetailsService.saveUser(userDTO);
         } catch (UserIsAlreadyExistException e) {
@@ -40,8 +40,23 @@ public class RegistrationController {
     }
 
 
+//    @PostMapping("/login")
+//    public ResponseEntity login(@RequestBody UserDTO userDTO) {
+//        UserDetails user = null;
+//        try {
+//            user = userDetailsService.loadUserByUsername(userDTO.getLogin());
+//        } catch (UsernameNotFoundException e) {
+//           return ResponseEntity.badRequest().body("");
+//        }
+//        if (user == null || !passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
+//            return ResponseEntity.badRequest().body("");
+//        }
+//        return ResponseEntity.ok().body("{\"token\":\"14222\"}");
+//    }
+
+
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity login(@RequestBody UserEntity userDTO) {
         UserDetails user = null;
         try {
             user = userDetailsService.loadUserByUsername(userDTO.getLogin());
@@ -51,6 +66,18 @@ public class RegistrationController {
         if (user == null || !passwordEncoder.matches(userDTO.getPassword(), user.getPassword())) {
             return ResponseEntity.badRequest().body("");
         }
-        return ResponseEntity.ok().body("{\"token\":\"14222\"}");
+        //return ResponseEntity.ok().body("{\"token\":\"14222\"}");
+        //return ResponseEntity.ok().body("{\"token\":\"1\"}");
+        return ResponseEntity.ok().body("{\"token\":\""+userDetailsService.getUsersRole(userDTO.getLogin())+"\"}");
+    }
+
+    @GetMapping("/scientist")
+    public String pageForScientist() {
+        return "privet ucheny";
+    }
+
+    @GetMapping("/judge")
+    public String pageForJudge() {
+        return "privet judge";
     }
 }

@@ -9,7 +9,7 @@
 
 D:/Java projects/web-lab-4/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5433/HitPoint</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/k4</jdbc-url>
     </data-source>
   </component>
 </project>
