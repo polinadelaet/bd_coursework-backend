@@ -2,6 +2,7 @@ package com.model.entity;
 
 import com.model.entity.scientistEntities.SeerEntity;
 import lombok.Data;
+import org.springframework.data.geo.Point;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -23,19 +24,19 @@ public class CaseEntity implements Serializable {
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "judge_id", referencedColumnName = "id")
-    private PolicemanEntity judge_id;
+    private JudgeEntity judge_id;
 
     public static enum Case_status {closed, closed_temp_arrested, open};
 
     @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
-    Case_status status;
+    //@Enumerated(EnumType.STRING)
+    String status;
 
     @Column(name = "date_of_crime")
     private String date_of_crime;
 
     @Column(name = "coordinates")
-    private String coordinates;
+    private Point coordinates;
 
     @Column(name = "opening_date", nullable = false)
     private String opening_date;

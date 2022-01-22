@@ -24,10 +24,10 @@ public class SeerEntity implements Serializable {
     @JoinColumn(name = "person_id", referencedColumnName = "id", nullable = false)
     private PersonEntity person_id;
 
-    @Column(name = "is_activated")
+    @Column(name = "is_activated", nullable = false)
     private Boolean is_activated;
 
-    @Column(name = "is_talented")
+    @Column(name = "is_talented", nullable = false)
     private Boolean is_talented;
 
 }
