@@ -13,7 +13,7 @@ public class UserEntity implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "login")
@@ -25,5 +25,8 @@ public class UserEntity implements Serializable {
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id", nullable = false)
     private RoleEntity roleId;
+
+    @Column(name = "p_id")
+    private Integer p_id;
 
 }

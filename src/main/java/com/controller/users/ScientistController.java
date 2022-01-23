@@ -71,6 +71,7 @@ public class ScientistController {
     }
 
 
+
     @Transactional
     @PostMapping("/addVisions")
     public ResponseEntity addVisions(@RequestBody List<VisionDTO> list, HttpServletRequest request) throws ServletException {
@@ -79,23 +80,22 @@ public class ScientistController {
         List<VisionEntity> visionEntities = new ArrayList<>();
 
         for (VisionDTO vision: list){
-            System.out.println(vision.getDescription() + "\n");
             VisionEntity visionEntity = new VisionEntity();
             visionEntity.setSeer_id(seerRepository.getSeerEntityById(vision.getSeer_id()));
             visionEntity.setCase_id(caseRepository.getCaseEntityById(vision.getCase_id()));
             visionEntity.setDate_of_vision(Date.valueOf(vision.getDate_of_vision()));
-//            java.util.Date date = new java.util.Date();
-//            visionEntity.setDate_of_vision(date.toString());
             visionEntity.setDescription(vision.getDescription());
             visionEntities.add(visionEntity);
+            VisionEntity visionEntity1 = visionRepository.save(visionEntity);
+            System.out.println(visionEntity1.getId());
         }
-        visionRepository.saveAll(visionEntities);
+        //visionRepository.saveAll(visionEntities);
 
-//        Integer lastCase = caseRepository.createNewCase();
-//        CaseEntity currentCase = caseRepository.getCaseEntityById(lastCase);
+        Integer lastCase = caseRepository.createNewCase();
 
+            caseRepository.setVisionCase(lastCase);
 
-        return ResponseEntity.ok().body("good");
+        return ResponseEntity.ok().body("ok");
     }
 
     @GetMapping("/getCurrentCaseId")

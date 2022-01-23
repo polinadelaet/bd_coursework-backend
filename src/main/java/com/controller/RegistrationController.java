@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.model.entity.auth.UserDto;
 import com.model.entity.auth.UserEntity;
 import com.model.repository.auth.UserRepository;
 import com.security.UserDetailsServiceImpl;
@@ -30,7 +31,7 @@ public class RegistrationController {
     private BCryptPasswordEncoder passwordEncoder;
 
     @PostMapping("/registration")
-    public ResponseEntity registration(@RequestBody UserEntity userDTO, HttpServletRequest request) throws ServletException {
+    public ResponseEntity registration(@RequestBody UserDto userDTO, HttpServletRequest request) throws ServletException {
         try {
             userDetailsService.saveUser(userDTO);
         } catch (UserIsAlreadyExistException e) {

@@ -1,11 +1,13 @@
 package com.model.entity;
 
 import com.model.entity.scientistEntities.SeerEntity;
+import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
-import org.springframework.data.geo.Point;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Data
 @Entity
@@ -15,7 +17,7 @@ public class CaseEntity implements Serializable {
 
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -33,15 +35,15 @@ public class CaseEntity implements Serializable {
     String status;
 
     @Column(name = "date_of_crime")
-    private String date_of_crime;
+    private Date date_of_crime;
 
     @Column(name = "coordinates")
-    private Point coordinates;
+    private String coordinates;
 
     @Column(name = "opening_date", nullable = false)
-    private String opening_date;
+    private Date opening_date;
 
     @Column(name = "closing_date")
-    private String closing_date;
+    private Date closing_date;
 
 }

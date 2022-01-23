@@ -2,7 +2,9 @@ package com.security;
 
 
 import com.model.entity.auth.RoleEntity;
+import com.model.entity.auth.UserDto;
 import com.model.entity.auth.UserEntity;
+import com.model.repository.auth.RoleRepository;
 import com.model.repository.auth.UserRepository;
 import com.security.userIsAlreadyExistException.UserIsAlreadyExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RoleRepository roleRepository;
 
 //    @Override
 //    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
@@ -66,7 +71,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
 
-    public UserEntity saveUser(UserEntity user) throws UserIsAlreadyExistException {
+    public UserEntity saveUser(UserDto user) throws UserIsAlreadyExistException {
         if (userRepository.findByLogin(user.getLogin()) != null) {
             throw new UserIsAlreadyExistException("User is already exists.");
         }
@@ -75,8 +80,13 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserEntity userDb = new UserEntity();
         userDb.setLogin(user.getLogin());
         userDb.setPassword(user.getPassword());
+        userDb.setP_id(user.getP_id());
+        userDb.setRoleId(roleRepository.getRoleEntityById(user.getRoleId()));
+        if (user.getP_id() != null) {
+            userDb.setP_id(user.getP_id());
+        }
         userRepository.save(userDb);
-        return user;
+        return userDb;
     }
 
 }

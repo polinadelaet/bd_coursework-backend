@@ -14,10 +14,9 @@ import java.text.SimpleDateFormat;
 public class VisionEntity implements Serializable {
     private static final long serialVersionUID = -55235622496042L;
 
-
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
