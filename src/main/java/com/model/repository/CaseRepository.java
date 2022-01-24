@@ -18,23 +18,6 @@ public interface CaseRepository extends JpaRepository<CaseEntity, Integer> {
     @Query(value = "select create_new_case()", nativeQuery = true)
     Integer createNewCase();
 
-    default void createPoint() {
-        int min = 1;
-        int max = 1000;
-
-        System.out.println("Random value in int from "+min+" to "+max+ ":");
-        int random_int1 = (int)Math.floor(Math.random()*(max-min+1)+min);
-        int random_int2 = (int)Math.floor(Math.random()*(max-min+1)+min);
-        System.out.println(random_int1 + " "+ random_int2);
-
-    }
-
-    @Query(value = "select get_random_point()", nativeQuery = true)
-    Point getRandomPoint();
-
-    @Query(value = "select get_open_cases()", nativeQuery = true)
-    List<CaseEntity> getOpenCases();
-
     @Query(value = "SELECT * FROM Court_case WHERE status = 'open' and policeman_id = ?1", nativeQuery = true)
     List<CaseEntity> getOpenCasesByPolicemanId(Integer p_id);
 
@@ -48,4 +31,7 @@ public interface CaseRepository extends JpaRepository<CaseEntity, Integer> {
 
     @Query(value = "select choose_new_suspect_status()", nativeQuery = true)
     Integer chooseNewSuspectStatus();
+
+    @Query(value = "select close_case(:c_id)", nativeQuery = true)
+    Boolean closeCase(@Param("c_id") Integer c_id);
 }

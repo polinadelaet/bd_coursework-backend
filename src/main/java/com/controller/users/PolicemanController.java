@@ -76,7 +76,9 @@ public class PolicemanController {
         caseEntity.setCoordinates(caseDto.getCoordinates());
 
         caseRepository.save(caseEntity);
+
         caseRepository.chooseNewSuspectStatus();
+        caseRepository.closeCase(caseDto.getId());
         return ResponseEntity.ok().body("good");
     }
 

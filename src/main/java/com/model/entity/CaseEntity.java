@@ -1,7 +1,6 @@
 package com.model.entity;
 
 import com.model.entity.scientistEntities.SeerEntity;
-import com.vividsolutions.jts.geom.Point;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
